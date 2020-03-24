@@ -227,7 +227,7 @@
                 <div class="signing-content-bottom"></div>
             </v-layout>
             <v-card-actions style="flex: 0 0 auto;">
-                <v-btn :disabled="signing" small flat @click="decline">Decline</v-btn>
+                <v-btn :disabled="signing && (isLocal || connected)" small flat @click="decline">Decline</v-btn>
                 <v-spacer />
                 <v-btn
                     dark
@@ -243,7 +243,7 @@
                     small
                     flat
                     dark
-                    :disabled="signing || delegation.calling"
+                    :disabled="(signing || delegation.calling) && (isLocal || connected)"
                     class="secondary"
                     @click="back"
                 >Back</v-btn>
@@ -519,8 +519,8 @@ export default class TxSigningDialog extends Mixins(class extends DialogHelper<A
     }
     async goNext() {
         if (this.step === 1) {
-            await this.buildTx()
             this.step++
+            await this.buildTx()
             if (!this.isLocal) {
                 this.signing = true
             }
@@ -660,7 +660,7 @@ export default class TxSigningDialog extends Mixins(class extends DialogHelper<A
     }
 
     decline() {
-        if (this.signing) {
+        if (this.signing && (this.isLocal || this.connected)) {
             return
         }
         this.opened = false

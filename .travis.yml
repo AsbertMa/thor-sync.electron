@@ -3,13 +3,24 @@ matrix:
     - os: osx
       osx_image: xcode11.3
       language: node_js
-      node_js: "10"
+      node_js: "12.8.1"
       env:
-        - ELECTRON_CACHE=$HOME/.cache/electron
-        - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
+        - npm_config_target=$nct
+        - npm_config_arch=$nca
+        - npm_config_target_arch=$ncta
+        - npm_config_disturl=$ncd
+        - npm_config_runtime=$ncr
+        - npm_config_build_from_source=$ncbfs
     - os: linux
       language: node_js
-      node_js: "10"
+      node_js: "12.8.1"
+      env: 
+        - npm_config_target=$nct
+        - npm_config_arch=$nca
+        - npm_config_target_arch=$ncta
+        - npm_config_disturl=$ncd
+        - npm_config_runtime=$ncr
+        - npm_config_build_from_source=$ncbfs
       addons:
         apt:
           packages:
@@ -20,10 +31,10 @@ cache:
     - $HOME/.cache/electron
     - $HOME/.cache/electron-builder
 
-if: tag IS present
+# if: tag IS present
 
 script:
-  - echo 'no action on regular hook'
+  - npm run build
 
 before_deploy:
   - if [ "$TRAVIS_OS_NAME" = "osx" ]; then rm -fr ~/private_keys && mkdir ~/private_keys                                    ; fi 
