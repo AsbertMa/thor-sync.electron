@@ -5,22 +5,11 @@ matrix:
       language: node_js
       node_js: "12.8.1"
       env:
-        - npm_config_target=$nct
-        - npm_config_arch=$nca
-        - npm_config_target_arch=$ncta
-        - npm_config_disturl=$ncd
-        - npm_config_runtime=$ncr
-        - npm_config_build_from_source=$ncbfs
+        - ELECTRON_CACHE=$HOME/.cache/electron
+        - ELECTRON_BUILDER_CACHE=$HOME/.cache/electron-builder
     - os: linux
       language: node_js
       node_js: "12.8.1"
-      env: 
-        - npm_config_target=$nct
-        - npm_config_arch=$nca
-        - npm_config_target_arch=$ncta
-        - npm_config_disturl=$ncd
-        - npm_config_runtime=$ncr
-        - npm_config_build_from_source=$ncbfs
       addons:
         apt:
           packages:
